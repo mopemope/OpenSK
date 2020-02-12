@@ -59,6 +59,7 @@ tockloader_flags=(
 declare -A supported_boards
 supported_boards["nrf52840dk"]="Y"
 supported_boards["nrf52840_dongle"]="Y"
+supported_boards["nrf52840_mdk_usb_dongle"]="Y"
 
 declare -A enabled_features=( [with_ctap1]=Y )
 
@@ -305,7 +306,8 @@ if [ "$install_app" != "none" -a "$clear_apps" = "Y" ]
 then
   # Uninstall can fail if there's no app already installed.
   # This is fine and we don't want that to stop the script
-  tockloader uninstall "${tockloader_flags[@]}" -a 0x40000 || true
+  # tockloader uninstall "${tockloader_flags[@]}" -a 0x40000 || true
+  echo "tockloader uninstall"
 fi
 
 if [ "$install_app" = "ctap2" ]
@@ -322,6 +324,6 @@ fi
 if [ "$install_app" != "none" ]
 then
   build_app_padding
-  tockloader flash "${tockloader_flags[@]}" -a 0x30000 "${tab_folder}/padding.bin"
-  tockloader install "${tockloader_flags[@]}" -a 0x40000 "${tab_folder}/${install_app}.tab"
+  # tockloader flash "${tockloader_flags[@]}" -a 0x30000 "${tab_folder}/padding.bin"
+  # tockloader install "${tockloader_flags[@]}" -a 0x40000 "${tab_folder}/${install_app}.tab"
 fi
